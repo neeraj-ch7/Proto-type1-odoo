@@ -1,0 +1,9 @@
+const router = require('express').Router();
+const { z } = require('zod');
+const { auth } = require('../middleware/auth');
+const { validate, asyncHandler } = require('../middleware/error');
+const { createUser, publicUser } = require('../services/auth.service');
+const { PASSWORD_REGEX, PASSWORD_MSG } = require('../utils/password');
+const schema = z.object({ email: z.string().trim().email('Enter a valid email'), password: z.string().regex(PASSWORD_REGEX, PASSWORD_MSG) });
+router.post('/', auth('admin'), validate(schema), asyncHandler(async (req, res) => res.status(201).json(publicUser(await createUser({ ...req.body, role: 'staff' })))));
+module.exports = router;

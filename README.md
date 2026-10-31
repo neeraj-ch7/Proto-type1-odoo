@@ -1,2 +1,2 @@
-# Proto-type1-odoo
-This repo is made for odoo hackathon
+# Brightloop
+See CONTRACT.md. Server: `cd server && cp .env.example .env && npm i && npm run seed:admin && npm run dev` (admin@brightloop.com / Admin@12345). Tests: `npm test` (set MONGO_URI to run the DB flow test).
