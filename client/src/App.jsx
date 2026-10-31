@@ -75,7 +75,10 @@ export default function App() {
           <Route path="discounts" element={<DiscountsPage />} />
           <Route path="templates" element={<TemplatesPage />} />
           <Route path="subscriptions" element={<SubscriptionsPage />} />
+          <Route path="subscriptions/:id" element={<SubscriptionsPage />} />
           <Route path="invoices" element={<InvoicesPage />} />
+          <Route path="invoices/:id" element={<InvoicesPage />} />
+          <Route path="invoices/:id/print" element={<InvoicesPage isPrintView />} />
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="customers" element={<UsersPage />} />
           <Route
