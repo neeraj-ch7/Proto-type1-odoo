@@ -78,19 +78,19 @@ export default function PortalSubscriptions() {
             return (
               <div
                 key={sub.id || sub._id}
-                className="bg-white border border-ink p-6 space-y-6"
+                className="bg-white border border-ink p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-hidden"
               >
                 {/* Subscription Top Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-line pb-4 gap-3">
                   <div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg font-black uppercase tracking-wider text-ink">
+                    <div className="flex items-center gap-2.5 flex-wrap">
+                      <span className="text-base sm:text-lg font-black uppercase tracking-wider text-ink">
                         {sub.number}
                       </span>
                       <StatusBadge status={sub.status} />
                     </div>
-                    <div className="flex items-center gap-2 mt-1 text-xs text-line font-medium uppercase">
-                      <Tag className="w-3.5 h-3.5 text-maroon" />
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-1 text-[11px] sm:text-xs text-line font-medium uppercase">
+                      <Tag className="w-3.5 h-3.5 text-maroon flex-shrink-0" />
                       <span>{planName}</span>
                       <span>•</span>
                       <span>Billed {billingPeriod}</span>
@@ -104,7 +104,7 @@ export default function PortalSubscriptions() {
                   </div>
 
                   {/* Dates */}
-                  <div className="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase text-line sm:text-right">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-semibold uppercase text-line sm:text-right">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>Start: {formatDate(sub.startDate)}</span>
@@ -123,7 +123,7 @@ export default function PortalSubscriptions() {
                 </div>
 
                 {/* Status Stepper */}
-                <div className="py-2 bg-cream/30 px-4 border border-line/40">
+                <div className="py-2 bg-cream/30 px-3 sm:px-4 border border-line/40 overflow-x-auto">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-line block mb-1">
                     Lifecycle Progress:
                   </span>
@@ -131,8 +131,8 @@ export default function PortalSubscriptions() {
                 </div>
 
                 {/* Subscription Line Items */}
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse text-xs">
+                <div className="overflow-x-auto w-full">
+                  <table className="w-full text-left border-collapse text-xs min-w-[480px]">
                     <thead>
                       <tr className="border-b border-ink/40 text-[10px] font-bold uppercase tracking-wider text-line">
                         <th className="py-2 pr-4">Product / Item</th>

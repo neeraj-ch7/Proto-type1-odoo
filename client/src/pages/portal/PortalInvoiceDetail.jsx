@@ -90,7 +90,7 @@ export default function PortalInvoiceDetail() {
       </div>
 
       {/* Invoice Document Component */}
-      <div className="bg-white border border-ink p-4 sm:p-8">
+      <div className="bg-white border border-ink p-2 sm:p-6 lg:p-8 overflow-hidden">
         <InvoiceDocument invoice={invoice} />
       </div>
     </div>

@@ -45,10 +45,10 @@ export default function RecordPaymentModal({ invoice, open, onClose, onSaved }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
       <form
         onSubmit={handleSubmit}
-        className="bg-white border border-ink w-full max-w-md p-6 space-y-4 font-sans"
+        className="bg-white border border-ink w-full max-w-md p-4 sm:p-6 space-y-4 font-sans max-h-[92vh] overflow-y-auto"
       >
         <div className="flex justify-between items-start border-b border-ink pb-3">
           <div>

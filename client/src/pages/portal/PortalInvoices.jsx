@@ -169,7 +169,7 @@ export default function PortalInvoices() {
         </Button>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between overflow-x-auto pb-1 sm:pb-0">
         <FilterChips
           options={filterOptions}
           selected={statusFilter}

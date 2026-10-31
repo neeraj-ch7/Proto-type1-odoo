@@ -13,7 +13,7 @@ import {
 } from '../../components/ui';
 import RecordPaymentModal from '../../components/payments/RecordPaymentModal';
 import InvoiceDocument from '../../components/invoices/InvoiceDocument';
-import { Download, Users, RefreshCw, Eye, CreditCard } from 'lucide-react';
+import { Download, RefreshCw, Eye, CreditCard } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function DashboardPage() {
@@ -182,11 +182,11 @@ export default function DashboardPage() {
     {
       header: 'CUSTOMER',
       render: (inv) => (
-        <div>
-          <div className="font-semibold uppercase text-ink">
+        <div className="max-w-[200px] truncate">
+          <div className="font-semibold uppercase text-ink truncate">
             {inv.customer?.name || 'Customer'}
           </div>
-          <div className="text-[11px] text-line font-mono">
+          <div className="text-[11px] text-line font-mono truncate">
             {inv.customer?.email || '—'}
           </div>
         </div>
@@ -270,14 +270,14 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8 font-sans">
+    <div className="space-y-6 sm:space-y-8 font-sans">
       {/* Header: OVERVIEW with period dropdown & export */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-line pb-6 gap-4">
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between border-b border-line pb-5 sm:pb-6 gap-4">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-maroon">
+          <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] text-maroon">
             EXECUTIVE DASHBOARD
           </span>
-          <h1 className="text-3xl font-black uppercase tracking-tight text-ink mt-0.5">
+          <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-ink mt-0.5">
             OVERVIEW
           </h1>
           <p className="text-xs uppercase tracking-wider text-line mt-1">
@@ -286,15 +286,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Controls: Period dropdown, customer filter, Export */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2.5 w-full xl:w-auto">
           <div className="flex items-center gap-2">
-            <label className="text-[11px] font-bold uppercase tracking-[0.08em] text-line">
+            <label className="text-[11px] font-bold uppercase tracking-[0.08em] text-line flex-shrink-0">
               Period:
             </label>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
-              className="px-3 py-2 text-xs font-bold uppercase bg-white border border-ink text-ink focus:outline-none focus:border-maroon"
+              className="w-full sm:w-auto px-3 py-2 text-xs font-bold uppercase bg-white border border-ink text-ink focus:outline-none focus:border-maroon"
             >
               <option value="today">Today</option>
               <option value="week">This Week</option>
@@ -305,64 +305,66 @@ export default function DashboardPage() {
           </div>
 
           {period === 'custom' && (
-            <div className="flex items-center gap-2 bg-white border border-ink px-2 py-1">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 bg-white border border-ink px-2 py-1">
               <input
                 type="date"
                 value={customFrom}
                 onChange={(e) => setCustomFrom(e.target.value)}
-                className="text-xs focus:outline-none"
+                className="text-xs focus:outline-none w-full sm:w-auto"
               />
               <span className="text-xs text-line font-bold">to</span>
               <input
                 type="date"
                 value={customTo}
                 onChange={(e) => setCustomTo(e.target.value)}
-                className="text-xs focus:outline-none"
+                className="text-xs focus:outline-none w-full sm:w-auto"
               />
             </div>
           )}
 
-          <div className="relative">
+          <div className="w-full sm:w-auto">
             <input
               type="text"
               placeholder="FILTER CUSTOMER ID / NAME"
               value={customerFilter}
               onChange={(e) => setCustomerFilter(e.target.value)}
-              className="px-3 py-2 text-xs uppercase bg-white border border-ink text-ink placeholder:text-line/60 focus:outline-none focus:border-maroon w-48 sm:w-56"
+              className="w-full sm:w-48 lg:w-56 px-3 py-2 text-xs uppercase bg-white border border-ink text-ink placeholder:text-line/60 focus:outline-none focus:border-maroon"
             />
           </div>
 
-          <Button
-            variant="secondary"
-            onClick={fetchSummary}
-            className="flex items-center gap-1.5"
-            title="Refresh metrics"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loadingSummary ? 'animate-spin' : ''}`} />
-          </Button>
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <Button
+              variant="secondary"
+              onClick={fetchSummary}
+              className="flex items-center gap-1.5"
+              title="Refresh metrics"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loadingSummary ? 'animate-spin' : ''}`} />
+            </Button>
 
-          <Button
-            variant="primary"
-            onClick={handleExport}
-            loading={exporting}
-            className="flex items-center gap-2"
-          >
-            <Download className="w-3.5 h-3.5" />
-            EXPORT
-          </Button>
+            <Button
+              variant="primary"
+              onClick={handleExport}
+              loading={exporting}
+              className="flex items-center gap-2"
+            >
+              <Download className="w-3.5 h-3.5" />
+              EXPORT
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* Four KpiCards in Order per Contract:
+      {/* Four KpiCards in Order:
           1. ACTIVE SUBSCRIPTIONS (maroon)
           2. REVENUE COLLECTED (maroonDeep)
           3. STILL OWED (ink)
           4. OVERDUE INVOICES (outlined, maroon number) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
         <KpiCard
           label="ACTIVE SUBSCRIPTIONS"
           value={loadingSummary ? '...' : summary.activeSubscriptions.toLocaleString('en-IN')}
-          subtitle="Currently active customer recurring accounts"
+          subtitle="Currently active recurring accounts"
           variant="maroon"
         />
 
@@ -394,25 +396,27 @@ export default function DashboardPage() {
 
       {/* Invoice Status Summary Chips / Section */}
       <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-ink/40 pb-3 gap-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between border-b border-ink/40 pb-3 gap-3">
           <div>
-            <h2 className="text-lg font-black uppercase tracking-tight text-ink">
+            <h2 className="text-base sm:text-lg font-black uppercase tracking-tight text-ink">
               INVOICES & SETTLEMENTS
             </h2>
-            <p className="text-[11px] uppercase tracking-wider text-line">
+            <p className="text-[10px] sm:text-[11px] uppercase tracking-wider text-line">
               Filter invoices by lifecycle state or open customer records
             </p>
           </div>
 
           {/* Filter Chips: ALL / DRAFT / CONFIRMED / PAID / OVERDUE */}
-          <FilterChips
-            options={filterOptions}
-            selected={statusFilter}
-            onChange={(key) => {
-              setStatusFilter(key);
-              setPage(1);
-            }}
-          />
+          <div className="overflow-x-auto pb-1 sm:pb-0">
+            <FilterChips
+              options={filterOptions}
+              selected={statusFilter}
+              onChange={(key) => {
+                setStatusFilter(key);
+                setPage(1);
+              }}
+            />
+          </div>
         </div>
 
         {/* Data Table */}
@@ -447,13 +451,13 @@ export default function DashboardPage() {
         subtitle="Standardized printable customer invoice document"
       >
         {previewInvoice && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <InvoiceDocument invoice={previewInvoice} />
-            <div className="flex justify-between items-center pt-4 border-t border-ink">
-              <span className="text-xs uppercase text-line font-mono">
+            <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-ink gap-3">
+              <span className="text-xs uppercase text-line font-mono text-center sm:text-left">
                 ID: {previewInvoice.id || previewInvoice._id}
               </span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-end">
                 <Button
                   variant="secondary"
                   onClick={() => window.print()}

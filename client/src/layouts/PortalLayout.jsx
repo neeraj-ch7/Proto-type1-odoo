@@ -15,11 +15,11 @@ export default function PortalLayout() {
   return (
     <div className="min-h-screen bg-cream text-ink flex flex-col font-sans antialiased">
       {/* Editorial Top Bar */}
-      <header className="bg-ink text-cream border-b border-ink">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-6">
+      <header className="bg-ink text-cream border-b border-ink sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center justify-between sm:justify-start gap-3 sm:gap-6">
             <Link to="/portal" className="flex items-center gap-2">
-              <span className="text-xl font-black tracking-widest uppercase text-cream hover:text-maroon transition-colors">
+              <span className="text-lg sm:text-xl font-black tracking-widest uppercase text-cream hover:text-maroon transition-colors">
                 BRIGHTLOOP
               </span>
               <span className="text-[10px] uppercase font-bold tracking-widest bg-maroon text-white px-2 py-0.5">
@@ -31,7 +31,7 @@ export default function PortalLayout() {
               <NavLink
                 to="/portal/subscriptions"
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] transition-colors ${
+                  `flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.08em] transition-colors whitespace-nowrap ${
                     isActive
                       ? 'bg-maroon text-white'
                       : 'text-cream/80 hover:text-white hover:bg-white/10'
@@ -44,7 +44,7 @@ export default function PortalLayout() {
               <NavLink
                 to="/portal/invoices"
                 className={({ isActive }) =>
-                  `flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.08em] transition-colors ${
+                  `flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-[0.08em] transition-colors whitespace-nowrap ${
                     isActive
                       ? 'bg-maroon text-white'
                       : 'text-cream/80 hover:text-white hover:bg-white/10'
@@ -57,18 +57,18 @@ export default function PortalLayout() {
             </nav>
           </div>
 
-          <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-2 sm:pt-0 border-white/10">
-            <div className="text-left sm:text-right">
-              <div className="text-xs font-bold uppercase text-cream truncate max-w-[200px]">
+          <div className="flex items-center justify-between md:justify-end gap-3 sm:gap-4 border-t md:border-t-0 pt-2.5 md:pt-0 border-white/10">
+            <div className="text-left md:text-right min-w-0">
+              <div className="text-xs font-bold uppercase text-cream truncate max-w-[180px] sm:max-w-[220px]">
                 {user?.name || user?.email || 'Customer'}
               </div>
-              <div className="text-[10px] text-cream/60 uppercase tracking-wider">
+              <div className="text-[10px] text-cream/60 uppercase tracking-wider truncate max-w-[180px] sm:max-w-[220px]">
                 {user?.email}
               </div>
             </div>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 border border-white/20 text-xs font-bold uppercase tracking-wider text-cream/80 hover:text-white hover:bg-maroon hover:border-maroon transition-colors"
+              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 border border-white/20 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-cream/80 hover:text-white hover:bg-maroon hover:border-maroon transition-colors cursor-pointer flex-shrink-0"
             >
               <LogOut className="w-3.5 h-3.5" />
               Sign Out
@@ -78,12 +78,12 @@ export default function PortalLayout() {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 overflow-x-hidden">
         <Outlet />
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-line/30 py-4 px-8 text-center text-[10px] uppercase tracking-widest text-line">
+      <footer className="border-t border-line/30 py-4 px-4 sm:px-8 text-center text-[10px] uppercase tracking-widest text-line">
         Brightloop Software Subscription Portal &copy; {new Date().getFullYear()}
       </footer>
     </div>

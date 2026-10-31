@@ -9,7 +9,7 @@ import {
   PageHeader,
 } from '../../components/ui';
 import InvoiceDocument from '../../components/invoices/InvoiceDocument';
-import { Search, RefreshCw, Eye, FileText, CreditCard } from 'lucide-react';
+import { Search, RefreshCw, Eye, FileText } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function PaymentsPage() {
@@ -71,7 +71,7 @@ export default function PaymentsPage() {
     {
       header: 'DATE',
       render: (p) => (
-        <span className="font-semibold text-ink">{formatDate(p.date)}</span>
+        <span className="font-semibold text-ink whitespace-nowrap">{formatDate(p.date)}</span>
       ),
     },
     {
@@ -83,7 +83,7 @@ export default function PaymentsPage() {
           <button
             type="button"
             onClick={() => handleOpenInvoice(invId)}
-            className="flex items-center gap-1 font-bold text-ink hover:text-maroon underline uppercase cursor-pointer"
+            className="flex items-center gap-1 font-bold text-ink hover:text-maroon underline uppercase cursor-pointer whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5" />
             {invNum}
@@ -94,11 +94,11 @@ export default function PaymentsPage() {
     {
       header: 'CUSTOMER',
       render: (p) => (
-        <div>
-          <div className="font-semibold uppercase text-ink">
+        <div className="max-w-[200px] truncate">
+          <div className="font-semibold uppercase text-ink truncate">
             {p.customer?.name || 'Customer'}
           </div>
-          <div className="text-[10px] text-line font-mono">
+          <div className="text-[10px] text-line font-mono truncate">
             {p.customer?.email || '—'}
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function PaymentsPage() {
     {
       header: 'METHOD',
       render: (p) => (
-        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-ink bg-white text-ink">
+        <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-ink bg-white text-ink whitespace-nowrap">
           {p.method ? p.method.replace('_', ' ') : 'OTHER'}
         </span>
       ),
@@ -116,7 +116,7 @@ export default function PaymentsPage() {
       header: 'AMOUNT',
       align: 'right',
       render: (p) => (
-        <span className="font-bold text-ink font-mono text-xs">
+        <span className="font-bold text-ink font-mono text-xs whitespace-nowrap">
           {formatCurrency(p.amount)}
         </span>
       ),
@@ -124,7 +124,7 @@ export default function PaymentsPage() {
     {
       header: 'RECORDED BY',
       render: (p) => (
-        <span className="text-[11px] uppercase text-line font-semibold">
+        <span className="text-[11px] uppercase text-line font-semibold whitespace-nowrap">
           {p.recordedBy?.name || p.recordedBy?.email || 'Staff'}
         </span>
       ),
@@ -132,7 +132,7 @@ export default function PaymentsPage() {
     {
       header: 'NOTE',
       render: (p) => (
-        <span className="text-[11px] uppercase text-line truncate max-w-xs block">
+        <span className="text-[11px] uppercase text-line truncate max-w-xs block" title={p.note}>
           {p.note || '—'}
         </span>
       ),
@@ -146,7 +146,7 @@ export default function PaymentsPage() {
           <button
             type="button"
             onClick={() => handleOpenInvoice(invId)}
-            className="p-1 text-line hover:text-ink hover:bg-cream transition-colors"
+            className="p-1 text-line hover:text-ink hover:bg-cream transition-colors cursor-pointer"
             title="View Invoice"
           >
             <Eye className="w-3.5 h-3.5" />
@@ -174,7 +174,7 @@ export default function PaymentsPage() {
       />
 
       {/* Filter Controls Bar */}
-      <div className="flex flex-wrap items-center gap-3 p-4 bg-white border border-ink">
+      <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2.5 p-3 sm:p-4 bg-white border border-ink">
         <div className="flex-1 min-w-[200px]">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-line absolute left-3 top-3" />
@@ -191,14 +191,14 @@ export default function PaymentsPage() {
           </div>
         </div>
 
-        <div>
+        <div className="w-full sm:w-auto">
           <select
             value={method}
             onChange={(e) => {
               setMethod(e.target.value);
               setPage(1);
             }}
-            className="px-3 py-2 text-xs uppercase font-bold bg-white border border-ink text-ink focus:outline-none focus:border-maroon"
+            className="w-full sm:w-auto px-3 py-2 text-xs uppercase font-bold bg-white border border-ink text-ink focus:outline-none focus:border-maroon"
           >
             <option value="">ALL METHODS</option>
             <option value="card">Card</option>
@@ -209,30 +209,31 @@ export default function PaymentsPage() {
           </select>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase text-line">From:</span>
-          <input
-            type="date"
-            value={from}
-            onChange={(e) => {
-              setFrom(e.target.value);
-              setPage(1);
-            }}
-            className="px-2 py-1.5 text-xs bg-white border border-ink focus:outline-none"
-          />
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase text-line">To:</span>
-          <input
-            type="date"
-            value={to}
-            onChange={(e) => {
-              setTo(e.target.value);
-              setPage(1);
-            }}
-            className="px-2 py-1.5 text-xs bg-white border border-ink focus:outline-none"
-          />
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] font-bold uppercase text-line">From:</span>
+            <input
+              type="date"
+              value={from}
+              onChange={(e) => {
+                setFrom(e.target.value);
+                setPage(1);
+              }}
+              className="px-2 py-1.5 text-xs bg-white border border-ink focus:outline-none"
+            />
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] font-bold uppercase text-line">To:</span>
+            <input
+              type="date"
+              value={to}
+              onChange={(e) => {
+                setTo(e.target.value);
+                setPage(1);
+              }}
+              className="px-2 py-1.5 text-xs bg-white border border-ink focus:outline-none"
+            />
+          </div>
         </div>
 
         {(method || search || from || to) && (
@@ -245,7 +246,7 @@ export default function PaymentsPage() {
               setTo('');
               setPage(1);
             }}
-            className="text-[10px] font-bold uppercase text-maroon hover:underline px-2 py-1"
+            className="text-[10px] font-bold uppercase text-maroon hover:underline px-2 py-1 self-start md:self-auto cursor-pointer"
           >
             Clear Filters
           </button>
@@ -274,7 +275,7 @@ export default function PaymentsPage() {
         subtitle="Referenced invoice settlement record"
       >
         {previewInvoice && (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <InvoiceDocument invoice={previewInvoice} />
             <div className="flex justify-end gap-3 pt-4 border-t border-ink">
               <Button variant="secondary" onClick={() => window.print()}>

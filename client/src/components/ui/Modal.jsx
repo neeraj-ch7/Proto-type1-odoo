@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 
 /**
  * Editorial Modal
+ * Responsive dialog with clean backdrop and mobile touch target padding.
  * @param {boolean} open
  * @param {() => void} onClose
  * @param {string} title
@@ -44,7 +45,7 @@ export default function Modal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-ink/75 transition-opacity"
@@ -55,17 +56,17 @@ export default function Modal({
       <div
         className={`relative bg-white border border-ink w-full ${
           maxWidthClasses[maxWidth] || 'max-w-md'
-        } p-6 space-y-4 font-sans max-h-[90vh] overflow-y-auto ${className}`}
+        } p-4 sm:p-6 space-y-4 font-sans max-h-[92vh] overflow-y-auto ${className}`}
       >
         <div className="flex justify-between items-start border-b border-ink pb-3">
           <div>
             {title && (
-              <h3 className="text-lg font-bold uppercase tracking-tight text-ink">
+              <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight text-ink">
                 {title}
               </h3>
             )}
             {subtitle && (
-              <p className="text-xs uppercase tracking-[0.08em] text-line mt-1">
+              <p className="text-[10px] sm:text-xs uppercase tracking-[0.08em] text-line mt-0.5">
                 {subtitle}
               </p>
             )}
@@ -73,7 +74,7 @@ export default function Modal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 text-line hover:text-ink cursor-pointer"
+            className="p-1 text-line hover:text-ink cursor-pointer flex-shrink-0"
             aria-label="Close"
           >
             <X className="w-5 h-5" />

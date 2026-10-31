@@ -3,7 +3,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
  * Editorial DataTable
- * Supports server-side pagination, loading skeleton, empty state, horizontal scroll
+ * Fully responsive: supports server-side pagination, loading skeleton, empty state,
+ * and seamless horizontal scrolling on mobile/tablet viewports.
  */
 export default function DataTable({
   columns = [],
@@ -19,16 +20,16 @@ export default function DataTable({
   className = '',
 }) {
   return (
-    <div className={`border border-ink bg-white font-sans ${className}`}>
+    <div className={`border border-ink bg-white font-sans overflow-hidden ${className}`}>
       {/* Scrollable table container */}
-      <div className="overflow-x-auto min-w-full">
-        <table className="w-full text-left border-collapse">
+      <div className="overflow-x-auto w-full">
+        <table className="w-full text-left border-collapse min-w-full">
           <thead>
-            <tr className="border-b border-ink bg-cream/40 text-[11px] font-bold uppercase tracking-[0.08em] text-line">
+            <tr className="border-b border-ink bg-cream/40 text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] text-line">
               {columns.map((col, idx) => (
                 <th
                   key={idx}
-                  className={`py-3 px-4 ${
+                  className={`py-3 px-3 sm:px-4 whitespace-nowrap ${
                     col.align === 'right'
                       ? 'text-right'
                       : col.align === 'center'
@@ -47,7 +48,7 @@ export default function DataTable({
               Array.from({ length: 5 }).map((_, rIdx) => (
                 <tr key={rIdx} className="animate-pulse">
                   {columns.map((_, cIdx) => (
-                    <td key={cIdx} className="py-4 px-4">
+                    <td key={cIdx} className="py-3.5 px-3 sm:px-4 whitespace-nowrap">
                       <div className="h-4 bg-line/20 w-3/4" />
                     </td>
                   ))}
@@ -74,7 +75,7 @@ export default function DataTable({
                   {columns.map((col, cIdx) => (
                     <td
                       key={cIdx}
-                      className={`py-3.5 px-4 text-ink ${
+                      className={`py-3 px-3 sm:px-4 text-ink whitespace-nowrap ${
                         col.align === 'right'
                           ? 'text-right'
                           : col.align === 'center'
@@ -98,8 +99,8 @@ export default function DataTable({
 
       {/* Pagination Footer */}
       {onPageChange && (
-        <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-ink bg-white gap-3">
-          <div className="text-[11px] uppercase tracking-wider text-line">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-3 sm:px-4 py-3 border-t border-ink bg-white gap-3">
+          <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-line text-center sm:text-left">
             Showing <span className="font-bold text-ink">{data.length}</span> of{' '}
             <span className="font-bold text-ink">{total}</span> items (Page{' '}
             <span className="font-bold text-ink">{page}</span> of{' '}
@@ -111,7 +112,7 @@ export default function DataTable({
               type="button"
               disabled={page <= 1 || loading}
               onClick={() => onPageChange(page - 1)}
-              className="flex items-center gap-1 px-3 py-1.5 border border-ink text-[11px] font-bold uppercase tracking-wider disabled:opacity-30 disabled:cursor-not-allowed hover:bg-cream transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 border border-ink text-[10px] sm:text-[11px] font-bold uppercase tracking-wider disabled:opacity-30 disabled:cursor-not-allowed hover:bg-cream transition-colors"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
               Prev
@@ -121,7 +122,7 @@ export default function DataTable({
               type="button"
               disabled={page >= totalPages || loading}
               onClick={() => onPageChange(page + 1)}
-              className="flex items-center gap-1 px-3 py-1.5 border border-ink text-[11px] font-bold uppercase tracking-wider disabled:opacity-30 disabled:cursor-not-allowed hover:bg-cream transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 border border-ink text-[10px] sm:text-[11px] font-bold uppercase tracking-wider disabled:opacity-30 disabled:cursor-not-allowed hover:bg-cream transition-colors"
             >
               Next
               <ChevronRight className="w-3.5 h-3.5" />

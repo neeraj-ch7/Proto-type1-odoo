@@ -23,7 +23,7 @@ export default function AppLayout() {
   return (
     <div className="min-h-screen bg-cream text-ink flex flex-col lg:flex-row antialiased font-sans">
       {/* Mobile Header Bar (< 1024px) */}
-      <div className="lg:hidden bg-ink text-cream px-4 py-3 flex items-center justify-between border-b border-line">
+      <div className="lg:hidden bg-ink text-cream px-4 py-3 flex items-center justify-between border-b border-line sticky top-0 z-30 shadow-sm">
         <div className="flex items-center gap-2">
           <span className="text-lg font-black tracking-widest uppercase text-cream">
             BRIGHTLOOP
@@ -34,21 +34,21 @@ export default function AppLayout() {
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="p-1.5 text-cream hover:text-maroon focus:outline-none"
+          className="p-1.5 text-cream hover:text-maroon focus:outline-none cursor-pointer"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {/* Sidebar: Fixed ~280px ink sidebar */}
+      {/* Sidebar: Fixed/Sticky ~280px ink sidebar */}
       <aside
-        className={`fixed lg:sticky top-0 z-40 h-screen w-[280px] bg-ink text-cream flex flex-col border-r border-line transition-transform duration-200 ease-in-out ${
+        className={`fixed lg:sticky top-0 z-40 h-screen w-[280px] flex-shrink-0 bg-ink text-cream flex flex-col border-r border-line transition-transform duration-200 ease-in-out ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Brand header */}
-        <div className="p-6 border-b border-[#332E2B]">
+        <div className="p-5 lg:p-6 border-b border-[#332E2B]">
           <div className="flex items-center justify-between">
             <span className="text-xl font-black tracking-widest text-cream uppercase">
               BRIGHTLOOP
@@ -73,7 +73,9 @@ export default function AppLayout() {
               )}
               {sec.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = location.pathname === item.path || location.pathname.startsWith(`${item.path}/`);
+                const isActive =
+                  location.pathname === item.path ||
+                  location.pathname.startsWith(`${item.path}/`);
                 return (
                   <NavLink
                     key={item.path}
@@ -86,7 +88,7 @@ export default function AppLayout() {
                     }`}
                   >
                     {Icon && <Icon className="w-4 h-4 flex-shrink-0" />}
-                    <span>{item.label}</span>
+                    <span className="truncate">{item.label}</span>
                   </NavLink>
                 );
               })}
@@ -130,7 +132,7 @@ export default function AppLayout() {
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold uppercase tracking-wider text-cream/70 hover:text-white hover:bg-[#2A2420] border border-transparent hover:border-[#332E2B] transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold uppercase tracking-wider text-cream/70 hover:text-white hover:bg-[#2A2420] border border-transparent hover:border-[#332E2B] transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             Sign Out
@@ -147,23 +149,23 @@ export default function AppLayout() {
       )}
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 min-h-screen overflow-y-auto">
-        <header className="bg-cream border-b border-line px-6 sm:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <main className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden overflow-y-auto">
+        <header className="bg-cream border-b border-line px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-3 truncate">
             <span className="text-xs uppercase tracking-widest font-bold text-line">
               WORKSPACE
             </span>
             <span className="text-xs text-line">/</span>
-            <span className="text-xs uppercase tracking-widest font-bold text-maroon">
+            <span className="text-xs uppercase tracking-widest font-bold text-maroon truncate">
               {role === 'admin' ? 'ADMIN ACCESS' : 'STAFF ACCESS'}
             </span>
           </div>
-          <div className="text-xs text-ink/70 uppercase tracking-widest font-mono">
+          <div className="text-xs text-ink/70 uppercase tracking-widest font-mono flex-shrink-0">
             {new Date().toLocaleDateString('en-GB')}
           </div>
         </header>
 
-        <div className="flex-1 p-6 sm:p-8">
+        <div className="flex-1 p-4 sm:p-6 lg:p-8">
           <Outlet />
         </div>
       </main>
