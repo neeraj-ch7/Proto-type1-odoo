@@ -207,7 +207,7 @@ Tested against the production database containing **5,200 Subscriptions**, **15,
    Ensure `.env` contains the Supabase database connection string:
    ```env
    PORT=5000
-   DATABASE_URL=postgresql://postgres:Brightloop@123@db.xsxpnnbzxjjiypainoks.supabase.co:5432/postgres
+   DATABASE_URL=postgresql://postgres:[your password]@db.xsxpnnbzxjjiypainoks.supabase.co:5432/postgres
    JWT_SECRET=brightloop_hackathon_jwt_secret_2026
    JWT_EXPIRES_IN=7d
    CLIENT_URL=http://localhost:5173
