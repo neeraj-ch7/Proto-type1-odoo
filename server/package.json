@@ -10,7 +10,8 @@
     "seed:admin": "node src/scripts/seedAdmin.js",
     "test": "node --test tests/auth.test.js",
     "audit": "node src/scripts/auditAccess.js",
-    "db:init": "node src/scripts/initDb.js"
+    "db:init": "node src/scripts/initDb.js",
+    "perf": "node src/scripts/perfTiming.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
