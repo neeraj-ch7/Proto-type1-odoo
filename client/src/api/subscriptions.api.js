@@ -8,3 +8,4 @@ export const updateSubscriptionStatus = (id, status) =>
 export const createFromTemplate = (templateId, data) =>
   api.post(`/subscriptions/from-template/${templateId}`, data).then((r) => r.data);
 export const getCustomers = () => api.get('/users', { params: { role: 'customer', limit: 100 } }).then((r) => r.data);
+

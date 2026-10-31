@@ -179,3 +179,4 @@ test('Invoice Lifecycle: confirmation and cancellation rules', () => {
   assert.equal(canCancel('confirmed', 100), false, 'Cannot cancel when amountPaid > 0');
   assert.equal(canCancel('paid', 500), false, 'Cannot cancel paid invoice');
 });
+

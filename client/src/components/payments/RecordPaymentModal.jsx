@@ -146,3 +146,4 @@ export default function RecordPaymentModal({ invoice, open, onClose, onSaved }) 
     </div>
   );
 }
+

@@ -50,3 +50,4 @@ const addPeriod = (dateInput, billingPeriod) => {
 };
 
 module.exports = { addPeriod };
+

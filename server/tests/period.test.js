@@ -46,3 +46,4 @@ test('4. Yearly period addition with leap-year handling', () => {
   const nextNonLeap = addPeriod(leapDay, 'yearly');
   assert.equal(nextNonLeap.toISOString(), '2025-02-28T00:00:00.000Z');
 });
+

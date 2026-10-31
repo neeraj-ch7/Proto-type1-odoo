@@ -9,3 +9,4 @@ export const runBilling = (data) => api.post('/billing/run', data).then((r) => r
 export const getInvoicePayments = (invoiceId) =>
   api.get(`/invoices/${invoiceId}/payments`).then((r) => r.data).catch(() => ({ items: [] }));
 export const recordPayment = (data) => api.post('/payments', data).then((r) => r.data);
+

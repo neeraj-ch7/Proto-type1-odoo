@@ -217,3 +217,4 @@ export default function InvoiceDocument({ invoice }) {
     </div>
   );
 }
+
