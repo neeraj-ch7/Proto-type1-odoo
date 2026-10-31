@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import AppLayout from './layouts/AppLayout';
+import PortalLayout from './layouts/PortalLayout';
 
 import LandingPage from './pages/landing/LandingPage';
 import LoginPage from './pages/auth/LoginPage';
@@ -19,13 +20,22 @@ import SubscriptionsPage from './pages/subscriptions/SubscriptionsPage';
 import InvoicesPage from './pages/invoices/InvoicesPage';
 import PaymentsPage from './pages/payments/PaymentsPage';
 import UsersPage from './pages/users/UsersPage';
-import PortalPage from './pages/portal/PortalPage';
+
+import PortalSubscriptions from './pages/portal/PortalSubscriptions';
+import PortalInvoices from './pages/portal/PortalInvoices';
+import PortalInvoiceDetail from './pages/portal/PortalInvoiceDetail';
 
 function ProtectedAppRoute({ children, adminOnly = false }) {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
   if (user.role === 'customer') return <Navigate to="/portal" replace />;
   if (adminOnly && user.role !== 'admin') return <Navigate to="/app/products" replace />;
+  return children;
+}
+
+function ProtectedPortalRoute({ children }) {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
   return children;
 }
 
@@ -55,8 +65,19 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Customer Portal */}
-        <Route path="/portal" element={<PortalPage />} />
-        <Route path="/portal/*" element={<PortalPage />} />
+        <Route
+          path="/portal"
+          element={
+            <ProtectedPortalRoute>
+              <PortalLayout />
+            </ProtectedPortalRoute>
+          }
+        >
+          <Route index element={<Navigate to="/portal/subscriptions" replace />} />
+          <Route path="subscriptions" element={<PortalSubscriptions />} />
+          <Route path="invoices" element={<PortalInvoices />} />
+          <Route path="invoices/:id" element={<PortalInvoiceDetail />} />
+        </Route>
 
         {/* Admin/Staff App */}
         <Route
@@ -67,7 +88,7 @@ export default function App() {
             </ProtectedAppRoute>
           }
         >
-          <Route index element={<Navigate to="/app/products" replace />} />
+          <Route index element={<Navigate to="/app/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="plans" element={<PlansPage />} />

@@ -24,6 +24,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('bl_token');
+      localStorage.removeItem('bl_user');
+      localStorage.removeItem('bl_dev_role');
+      localStorage.removeItem('bl_dev_user_id');
+      if (typeof window !== 'undefined' && window.location.pathname !== '/login' && window.location.pathname !== '/') {
+        window.location.href = '/login';
+      }
+    }
     return Promise.reject(error);
   }
 );
