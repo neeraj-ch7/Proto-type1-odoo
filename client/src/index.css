@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-radius: 0 !important;
+  }
+  body {
+    background-color: #ECE9DC;
+    color: #1A1614;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Editorial design badges per CONTRACT section 10:
+   PAID = ink fill; CONFIRMED = ink outline; OVERDUE = maroon fill; DRAFT = dashed outline; CANCELLED = muted.
+*/
+.badge-paid {
+  background-color: #1A1614;
+  color: #ECE9DC;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-confirmed {
+  border: 1px solid #1A1614;
+  color: #1A1614;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-overdue {
+  background-color: #800000;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-draft {
+  border: 1px dashed #5A5550;
+  color: #5A5550;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-cancelled {
+  background-color: #5A5550;
+  color: #ECE9DC;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.badge-active {
+  background-color: #800000;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-paused {
+  border: 1px solid #800000;
+  color: #800000;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.badge-closed {
+  border: 1px solid #5A5550;
+  color: #5A5550;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
